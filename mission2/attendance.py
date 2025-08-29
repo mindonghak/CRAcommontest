@@ -93,6 +93,12 @@ class UserInfo:
 
 
 class UserDatabase:
+    instance = None
+    def __new__(cls):
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.user_dictionary = {}
 
@@ -113,9 +119,16 @@ class UserDatabase:
 
 
 
-class Attendance:
+class Attendance(object):
+    instance = None
+    def __new__(cls):
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.user_database = UserDatabase()
+
 
     def update_user_info(self, filename):
         content = FileReader.read_file(filename)
